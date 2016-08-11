@@ -1,0 +1,13 @@
+{
+  "name": "table",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node server.js webpack"
+  },
+  "dependencies": {
+    "express": "3.3.8"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
