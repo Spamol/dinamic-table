@@ -76,69 +76,92 @@ class Table {
                 tr.appendChild(td);
             }
             this.tbody.appendChild(tr);
+        }
+        this.backupTbody = this.tbody.cloneNode(true);
+        if(JSON.parse(localStorage.getItem(this.config[0].class))) {
+            newTable.appendChild(this.tbody);
+            let localData = JSON.parse(localStorage.getItem(this.config[0].class))
+            this.sort(false, {'sort':localData.sort}, this.thead.rows[0].cells[localData.idCell].firstChild);
+        } else {
             newTable.appendChild(this.tbody);
         }
     }
     sort(e, sortType, elem) {
-        e.preventDefault();
-        console.dir(elem);
+        e && e.preventDefault();
+        if(e){
+            for(let i = 0, len = elem.parentElement.parentElement.cells.length; i < len; i++) {
+                if(elem.parentElement.parentElement.cells[i] !== elem.parentElement && this.config[0].columns[i].sort) {
+                    this.config[0].columns[i].sort = 'sort';
+                    elem.parentElement.parentElement.cells[i].className = "table__th_" + this.config[0].theme + " sort";
+                }
+            }
 
-        switch (sortType.sort) {
-            case 'sort-less':
-                sortType.sort = 'sort-more';
-                elem.parentElement.className = "table__th_" + this.config[0].theme + " sort-more";
-                break;
-            case 'sort-more':
-                sortType.sort = 'sort';
-                elem.parentElement.className = "table__th_" + this.config[0].theme + " sort";
-                break;
-            default:
-                sortType.sort = 'sort-less';
-                elem.parentElement.className = "table__th_" + this.config[0].theme + " sort-less";
+            switch (sortType.sort) {
+                case 'sort-less':
+                    sortType.sort = 'sort-more';
+                    elem.parentElement.className = "table__th_" + this.config[0].theme + " sort-more";
+                    break;
+                case 'sort-more':
+                    sortType.sort = 'sort';
+                    elem.parentElement.className = "table__th_" + this.config[0].theme + " sort";
+                    break;
+                default:
+                    sortType.sort = 'sort-less';
+                    elem.parentElement.className = "table__th_" + this.config[0].theme + " sort-less";
+            }
+        } else {
+            elem.parentElement.className = "table__th_" + this.config[0].theme + " " + sortType.sort;
+            this.config[0].columns[elem.index].sort = sortType.sort;
         }
-        this.sortTable(elem.index);
+        this.sortTable(elem.index, sortType.sort);
 
     }
 
-    sortTable(idCell) {
-        // var tbody = grid.getElementsByTagName('tbody')[0];
+    sortTable(idCell, sort) {
 
-      // Составить массив из TR
-      console.dir(this.tbody);
       let rowsArray = [].slice.call(this.tbody.rows),
           compare;
-      console.log('rowsArray ' , rowsArray);
 
-      switch (typeof rowsArray[0].cells[0].textContent) {
+      switch (typeof (!isNaN(Number(rowsArray[0].cells[idCell].textContent)) ? Number(rowsArray[0].cells[idCell].textContent) : rowsArray[0].cells[idCell].textContent)) {
         case 'number':
           compare = function(rowA, rowB) {
-            return rowA.cells[idCell].innerHTML - rowB.cells[idCell].innerHTML;
+            if(sort == 'sort-less'){
+                return Math.abs(rowA.cells[idCell].textContent) > Math.abs(rowB.cells[idCell].textContent) ? 1 : -1;
+            } else if(sort == 'sort-more'){
+                return Math.abs(rowA.cells[idCell].textContent) < Math.abs(rowB.cells[idCell].textContent) ? 1 : -1;
+            } else {
+                return false;
+            }
           };
           break;
         case 'string':
           compare = function(rowA, rowB) {
-            return rowA.cells[idCell].innerHTML > rowB.cells[idCell].innerHTML ? 1 : -1;
+            if(sort == 'sort-less'){
+                return rowA.cells[idCell].textContent > rowB.cells[idCell].textContent ? 1 : -1;
+            } else if(sort == 'sort-more'){
+                return rowA.cells[idCell].textContent < rowB.cells[idCell].textContent ? 1 : -1;
+            } else {
+                return false;
+            }
           };
           break;
       }
 
-      // сортировать
-      rowsArray.sort(compare);
-
-      // Убрать tbody из большого DOM документа для лучшей производительности
       this.newTable.removeChild(this.tbody);
+      localStorage.removeItem(this.config[0].class)
 
-      // добавить результат в нужном порядке в TBODY
-      // они автоматически будут убраны со старых мест и вставлены в правильном порядке
-      for (var i = 0; i < rowsArray.length; i++) {
-        this.tbody.appendChild(rowsArray[i]);
+      if(sort !== 'sort') {
+          rowsArray.sort(compare);
+          for (var i = 0; i < rowsArray.length; i++) {
+            this.tbody.appendChild(rowsArray[i]);
+          }
+          localStorage.setItem(this.config[0].class, JSON.stringify({'idCell': idCell, 'sort': sort}));
       }
-
+      if(sort === 'sort') this.tbody = this.backupTbody.cloneNode(true);
       this.newTable.appendChild(this.tbody);
     }
 
     loadData() {
-        console.log('this.buttonLoadData', this.buttonLoadData.getBoundingClientRect());
         httpGet("/data?data=" + this.urlData + "&page=" + this.data.length, 'get').then((res) => {
             if(res.length) {
                 this.data = this.data.concat(res);
@@ -146,7 +169,9 @@ class Table {
             } else {
                 this.buttonLoadData.className = 'button_default-hide';
             }
-            window.scrollTo(0,document.body.scrollTop + this.buttonLoadData.getBoundingClientRect().top);
+            // Опционально
+            window.scrollTo(0, document.body.scrollHeight);
+
         });
     }
 }
