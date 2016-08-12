@@ -10,7 +10,7 @@ npm run build
 ```
 Запуск сервера
 ```javascript
-npm run server
+npm run start
 ```
 Сайт будет доступен по `localhost:3000`
 
