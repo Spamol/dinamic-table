@@ -1,0 +1,32 @@
+[
+  {
+    "class":"table_ya_web2",
+    "theme": "web2",
+    "columns": [
+      {
+        "id": "name",
+        "title": "Фамилия",
+        "sort": "sort"
+      },
+      {
+        "id": "profit",
+        "title": "Доход",
+        "sort": "sort"
+      },
+      {
+        "id": "span",
+        "title": "Расход",
+        "sort": "sort"
+      },
+      {
+        "id": "link",
+        "title": "Сайт",
+        "sort": "sort"
+      },
+      {
+        "id": "state",
+        "title": "В штате"
+      }
+    ]
+  }
+]

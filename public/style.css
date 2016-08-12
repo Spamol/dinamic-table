@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.wrap_page {
+    width: 1170px;
+    margin: 0 auto;
+    text-align: center;
+}
+.table_ya,
+.table_ya_web2{
+    display: inline-block;
+    vertical-align: top;
+}
+/* default style */
+.table_default {
+    font-family: 'Verdana', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto 20px;
+}
+.table__th_default{
+    height: 44px;
+}
+.table__th_default,
+.table__td_default:first-child {
+    background: #AFCDE7;
+    color: white;
+    padding: 10px 20px;
+}
+.table__th_default a{
+    color: white;
+}
+.table__th_default.sort:after {
+    content: "\2195";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__th_default.sort-less:after {
+    content: "\2193";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__th_default.sort-more:after {
+    content: "\2191";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__th_default,
+.table__td_default {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+.table__td_default {
+    background: #D8E6F3;
+    padding: 0 10px;
+    height: 33px;
+}
+.table__td_default .red {
+    color: #ff0000;
+}
+.table__td_default .blue {
+    color: #0000ff;
+}
+.table__th_default:first-child,
+.table__td_default:first-child {
+    text-align: left;
+}
+/* web2 style */
+.table_web2 {
+    font-family:Arial, Helvetica, sans-serif;
+    color:#666;
+    font-size:12px;
+    text-shadow: 1px 1px 0px #fff;
+    background:#eaebec;
+    margin: 0 auto 20px;
+    border:#ccc 1px solid;
+    border-collapse:separate;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+
+    -moz-box-shadow: 0 1px 2px #d1d1d1;
+    -webkit-box-shadow: 0 1px 2px #d1d1d1;
+    box-shadow: 0 1px 2px #d1d1d1;
+}
+
+.table__th_web2 {
+    font-weight:bold;
+    padding:21px 25px 22px 25px;
+    border-top:1px solid #fafafa;
+    border-bottom:1px solid #e0e0e0;
+
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+.table__th_web2 a {
+    color: #666;
+}
+.table__th_web2:first-child{
+    text-align: left;
+    padding-left:20px;
+}
+.table__th_web2.sort:after {
+    content: "\2195";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__th_web2.sort-less:after {
+    content: "\2193";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__th_web2.sort-more:after {
+    content: "\2191";
+    padding-left: 5px;
+    position: absolute;
+}
+.table__tr_web2:first-child th:first-child{
+    -moz-border-radius-topleft:3px;
+    -webkit-border-top-left-radius:3px;
+    border-top-left-radius:3px;
+}
+.table__tr_web2:first-child th:last-child{
+    -moz-border-radius-topright:3px;
+    -webkit-border-top-right-radius:3px;
+    border-top-right-radius:3px;
+}
+.table__tr_web2{
+    text-align: center;
+    padding-left:20px;
+}
+.table__td_web2:first-child{
+    text-align: left;
+    padding-left:20px;
+    border-left: 0;
+}
+.table__td_web2 {
+    padding:18px;
+    border-top: 1px solid #ffffff;
+    border-bottom:1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+
+    background: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+    background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+.table__td_web2 .red {
+    color: #ff0000;
+}
+.table__td_web2 .blue {
+    color: #0000ff;
+}
+.table__tr_web2:nth-child(even) td{
+    background: #f6f6f6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+    background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+.table__tr_web2:last-child td{
+    border-bottom:0;
+}
+.table__tr_web2:last-child td:first-child{
+    -moz-border-radius-bottomleft:3px;
+    -webkit-border-bottom-left-radius:3px;
+    border-bottom-left-radius:3px;
+}
+.table__tr_web2:last-child td:last-child{
+    -moz-border-radius-bottomright:3px;
+    -webkit-border-bottom-right-radius:3px;
+    border-bottom-right-radius:3px;
+}
+.table__tr_web2:hover td{
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+    background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
+}
+
+.table_web2 a:link {
+    color: #666;
+    font-weight: bold;
+    text-decoration:none;
+}
+.table_web2 a:active,
+.table_web2 a:hover {
+    color: #bd5a35;
+    text-decoration:underline;
+}
+
+/* Кнопка загрузки */
+.button_default {
+    padding: 10px;
+}
+.button_default-hide {
+    display: none;
+}
