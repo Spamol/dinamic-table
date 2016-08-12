@@ -22,6 +22,7 @@ class Table {
     renderTable() {
         let wrapTable = document.querySelector('.' + this.config[0].class);
         if(wrapTable) {
+<<<<<<< HEAD
             //let mainTable = document.createElement('table');
             this.newTable = document.createElement('table');
             this.buttonLoadData = document.createElement('button');
@@ -30,6 +31,16 @@ class Table {
             this.renderBodyTable(this.newTable);
             //mainTable.appendChild(this.newTable);
             wrapTable.appendChild(this.newTable);
+=======
+            let mainTable = document.createElement('table');
+            this.buttonLoadData = document.createElement('button');
+            if('theme' in this.config[0]) mainTable.className = "table_" + this.config[0].theme;
+            this.newTable = document.createElement('tbody');
+            this.renderHeadTable(this.newTable);
+            this.renderBodyTable(this.newTable);
+            mainTable.appendChild(this.newTable);
+            wrapTable.appendChild(mainTable);
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
             this.buttonLoadData.className = 'button_default';
             this.buttonLoadData.innerHTML = 'Загрузить еще';
             this.buttonLoadData.addEventListener('click', (e) => this.loadData());
@@ -41,7 +52,10 @@ class Table {
     }
     renderHeadTable(newTable) {
         let tr = document.createElement('tr');
+<<<<<<< HEAD
         this.thead = document.createElement('thead');
+=======
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
         if('theme' in this.config[0]) tr.className = "table__tr_" + this.config[0].theme;
         for (let i = 0, len = this.config[0].columns.length; i < len; i++) {
             let th = document.createElement('th');
@@ -50,7 +64,10 @@ class Table {
                 th.className = "table__th_" + this.config[0].theme + " sort";
                 let link = document.createElement('a');
                 link.href = '#';
+<<<<<<< HEAD
                 link.index = i;
+=======
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
                 link.addEventListener('click', (e) => this.sort(e, this.config[0].columns[i], link));
                 link.innerHTML = this.config[0].columns[i].title;
                 th.appendChild(link);
@@ -59,18 +76,26 @@ class Table {
             }
             tr.appendChild(th);
         }
+<<<<<<< HEAD
         this.thead.appendChild(tr);
         newTable.appendChild(this.thead);
     }
     renderBodyTable(newTable, loadData) {
         let renderData = loadData ? loadData : this.data;
         if(!loadData) this.tbody = document.createElement('tbody');
+=======
+        newTable.appendChild(tr);
+    }
+    renderBodyTable(newTable, loadData) {
+        let renderData = loadData ? loadData : this.data;
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
         for (let i = 0, len = renderData.length; i < len; i++) {
             let tr = document.createElement('tr');
             if('theme' in this.config[0]) tr.className = "table__tr_" + this.config[0].theme;
             for(let m = 0, len = this.config[0].columns.length; m < len; m++) {
                 let td = document.createElement('td');
                 if('theme' in this.config[0]) td.className = "table__td_" + this.config[0].theme;
+<<<<<<< HEAD
                 td.index = m;
                 td.innerHTML = this.config[0].columns[m].id in renderData[i] ? dataFormated(renderData[i][this.config[0].columns[m].id]) : '';
                 tr.appendChild(td);
@@ -78,11 +103,21 @@ class Table {
             this.tbody.appendChild(tr);
             newTable.appendChild(this.tbody);
             
+=======
+                td.innerHTML = this.config[0].columns[m].id in renderData[i] ? dataFormated(renderData[i][this.config[0].columns[m].id]) : '';
+                tr.appendChild(td);
+            }
+            newTable.appendChild(tr);
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
         }
     }
     sort(e, sortType, elem) {
         e.preventDefault();
+<<<<<<< HEAD
         console.dir(elem);
+=======
+        console.log('sorting!', e, sortType.sort, elem);
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
         switch (sortType.sort) {
             case 'sort-less':
                 sortType.sort = 'sort-more';
@@ -96,6 +131,7 @@ class Table {
                 sortType.sort = 'sort-less';
                 elem.parentElement.className = "table__th_" + this.config[0].theme + " sort-less";
         }
+<<<<<<< HEAD
         this.sortTable(elem.index);
 
     }
@@ -137,6 +173,11 @@ class Table {
       this.newTable.appendChild(this.tbody);
     }
 
+=======
+
+    }
+
+>>>>>>> b2918ff934730cefd284d712e05d797883a91fd7
     loadData() {
         console.log('this.buttonLoadData', this.buttonLoadData.getBoundingClientRect());
         httpGet("/data?data=" + this.urlData + "&page=" + this.data.length, 'get').then((res) => {
